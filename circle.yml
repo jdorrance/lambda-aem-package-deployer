@@ -4,6 +4,7 @@ general:
 test:
   override:
     - node zip.js
+    - npm uninstall archiver
 deployment:
   production:
     branch: master
