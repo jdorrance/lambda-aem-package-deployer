@@ -1,6 +1,3 @@
-dependencies:
-  pre:
-    - npm install
 general:
   artifacts:
     - "build.zip"
@@ -11,4 +8,5 @@ deployment:
   production:
     branch: master
     commands:
+      - aws configure set default.region us-east-1
       - aws lambda update-function-code --function-name lambda-aem-package-deployer --zip-file fileb://build.zip
