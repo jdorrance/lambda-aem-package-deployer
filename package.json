@@ -1,0 +1,24 @@
+{
+  "name": "lambda-aem-package-deployer",
+  "version": "1.0.0",
+  "description": "Deploys a package and replicates to AEM instances",
+  "main": "index.js",
+  "scripts": {
+    "package": "node zip.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdorrance/lambda-aem-package-deployer.git"
+  },
+  "author": "John Dorrance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdorrance/lambda-aem-package-deployer/issues"
+  },
+  "homepage": "https://github.com/jdorrance/lambda-aem-package-deployer#readme",
+  "dependencies": {
+    "archiver": "^1.3.0",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {}
+}

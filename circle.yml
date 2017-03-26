@@ -1,0 +1,17 @@
+dependencies:
+  pre:
+    - npm install
+general:
+  artifacts:
+    - "build.zip" # SCC Fixtures
+test:
+  override:
+    - bundle exec middleman build
+deployment:
+  production:
+    branch: master
+    commands:
+      - tar -zvcf build.zip .
+      - aws s3 sync build s3://sktoolsfrontend/ --delete --cache-control max-age=604800,s-maxage=3600
+      - aws configure set preview.cloudfront true
+      - aws cloudfront create-invalidation --distribution-id E2PGBAQJHM23D1 --paths /*
