@@ -48,9 +48,14 @@ let index = function index(event, context, callback) {
                 force: 'true',
                 install: 'true'
             };
-            let url = 'http://' + event.target + '/crx/packmgr/service.jsp';
+
+            let prefix = 'http://';
+            if(event.target.indexOf("http://") > -1 || event.target.indexOf("https://") > -1){
+                prefix = '';
+            }
+            let url = prefix + event.target + '/crx/packmgr/service.jsp';
             if(event && event.username && event.password){
-                url = 'http://' + event.username + ':' + event.password + '@' + event.target + '/crx/packmgr/service.jsp';
+                url = prefix + event.username + ':' + event.password + '@' + event.target + '/crx/packmgr/service.jsp';
             }
             console.log(url);
             request.post({
@@ -62,9 +67,9 @@ let index = function index(event, context, callback) {
                     callback(err);
                 }
                 console.log('Upload successful!  Server responded with:', body);
-                let replicateUrl = 'http://' + event.target + '/bin/replicate.json';
+                let replicateUrl = prefix + event.target + '/bin/replicate.json';
                 if(event && event.username && event.password){
-                    replicateUrl = 'http://' + event.username + ':' + event.password + '@' + event.target + '/bin/replicate.json';
+                    replicateUrl = prefix + event.username + ':' + event.password + '@' + event.target + '/bin/replicate.json';
                 }
                 request.post({
                     url: replicateUrl,
