@@ -48,7 +48,10 @@ let index = function index(event, context, callback) {
                 force: 'true',
                 install: 'true'
             };
-            const url = 'http://' + event.username + ':' + event.password + '@' + event.target + '/crx/packmgr/service.jsp';
+            let url = 'http://' + event.target + '/crx/packmgr/service.jsp';
+            if(event && event.username && event.password){
+                url = 'http://' + event.username + ':' + event.password + '@' + event.target + '/crx/packmgr/service.jsp';
+            }
             console.log(url);
             request.post({
                 url: url,
@@ -59,8 +62,12 @@ let index = function index(event, context, callback) {
                     callback(err);
                 }
                 console.log('Upload successful!  Server responded with:', body);
+                let replicateUrl = 'http://' + event.target + '/bin/replicate.json';
+                if(event && event.username && event.password){
+                    replicateUrl = 'http://' + event.username + ':' + event.password + '@' + event.target + '/bin/replicate.json';
+                }
                 request.post({
-                    url: 'http://' + event.username + ':' + event.password + '@' + event.target + '/bin/replicate.json',
+                    url: replicateUrl,
                     formData: {
                         path: "/etc/packages/" + event.filename,
                         cmd: "activate"
